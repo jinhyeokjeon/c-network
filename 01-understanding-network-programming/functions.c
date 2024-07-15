@@ -1,4 +1,4 @@
-#include <sys/socketh>
+#include <sys/socket.h>
 
 int socket(int domain, int type, int protocol);
 // 소켓 생성 함수
@@ -65,15 +65,17 @@ int accept(int sock, struct sockaddr *addr, socklen_t *addrlen);
 int connect(int sock, struct sockaddr *serv_addr, socklen_t addrlen);
 // 연결 요청 함수
 // 성공 시 0, 실패 시 -1 반환
-// 함수호출 시 자동으로 소켓에 로컬 IP 주소와 로컬 포트번호가 할당되므로, 명시적으로 bind 함수를 호출할 필요가 없다
+
+// 함수호출 시 소켓에 주소정보가 할당되지 않았다면 자동으로 소켓에 로컬 IP 주소와 로컬 포트번호가 할당되므로, 명시적으로 bind 함수를 호출할 필요가 없다
+// IP는 호스트의 IP로, PORT는 임의의 사용하지 않는 PORT번호로 할당된다.
 
 // sock:		클라이언트 소켓의 파일 디스크립터
 // servaddr:	연결요청 할 서버의 주소정보를 담은 변수의 주소 값 전달
 // addrlen:		두 번째 매개변수 servaddr에 전달된 주소의 변수 크기를 바이트 단위로 전달 
 
-#include <sys/typesh>
-#include <sys/stath>
-#include <fcntlh>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 int open(const char *path, int flag);
 // 파일 여는 함수
@@ -81,13 +83,13 @@ int open(const char *path, int flag);
 // path: 파일 이름을 나타내는 문자열의 주소 값 전달
 // flag: 파일의 오픈 모드 정보 전달
 
-#include <unistdh>
+#include <unistd.h>
 
 int close(int fd);
 // 파일 닫는 함수
 // 성공 시 0, 실패 시 -1 반환
 
-ssize_t write(int fd, const cond *buf, size_t nbytes);
+ssize_t write(int fd, const void *buf, size_t nbytes);
 // 파일에 데이터 출력하는 함수
 // 성공 시 전달한 바이트 수, 실패 시 -1 반환
 
@@ -105,7 +107,7 @@ ssize_t read(int fd, void *buf, size_t nbytes);
 // buf: 수신한 데이터를 저장할 버퍼의 주소 값
 // nbytes: 수신할 최대 바이트 수
 
-#include <arpa/ineth>
+#include <arpa/inet.h>
 
 // 네트워크 바이트 순서는 빅 엔디안 방식으로 통일
 
