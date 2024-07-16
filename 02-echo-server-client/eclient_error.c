@@ -7,32 +7,32 @@
 #define BUF_SIZE 1024
 
 int main(int argc, char *argv[]) {
-	int sock;
-	char message[BUF_SIZE];
-	int str_len;
-	struct sockaddr_in serv_addr;
-	
-	sock = socket(PF_INET, SOCK_STREAM, 0);
+    int sock;
+    char message[BUF_SIZE];
+    int str_len;
+    struct sockaddr_in serv_addr;
+    
+    sock = socket(PF_INET, SOCK_STREAM, 0);
 
-	memset(&serv_addr, 0, sizeof(serv_addr));
-	serv_addr.sin_family = AF_INET;
-	serv_addr.sin_addr.s_addr = inet_addr(argv[1]);
-	serv_addr.sin_port = htons(atoi(argv[2]));
+    memset(&serv_addr, 0, sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_addr.s_addr = inet_addr(argv[1]);
+    serv_addr.sin_port = htons(atoi(argv[2]));
 
-	connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
+    connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr));
 
-	while(1) {
-		fputs("Input message(Q to quit): ", stdout);
-		fgets(message, BUF_SIZE, stdin);
+    while(1) {
+        fputs("Input message(Q to quit): ", stdout);
+        fgets(message, BUF_SIZE, stdin);
 
-		if(!strcmp(message, "q\n") || !strcmp(message, "Q\n"))
-			break;
+        if(!strcmp(message, "q\n") || !strcmp(message, "Q\n"))
+            break;
 
-		write(sock, message, strlen(message));
-		str_len = read(sock, message, BUF_SIZE - 1);
-		message[str_len] = 0;
-		printf("Message from server: %s", message);
-	}
-	close(sock);
-	return 0;
+        write(sock, message, strlen(message));
+        str_len = read(sock, message, BUF_SIZE - 1);
+        message[str_len] = 0;
+        printf("Message from server: %s", message);
+    }
+    close(sock);
+    return 0;
 }
