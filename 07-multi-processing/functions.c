@@ -34,6 +34,19 @@ void (*signal(int signo, void (*func)(int)))(int);
 // SIGINT:      CTRL+C 가 입력된 상황
 // SIGCHLD:     자식 프로세스가 종료된 상황
 
+int sigaction(int signo, const struct sigaction *act, struct sigaction *oldact);
+// 성공 시 0, 실패 시 -1 반환
+
+// signo:   signal과 동일
+// act:     signo에 해당하는 시그널 발생 시 호출될 함수(시그널 핸들러)
+// oldact:  이전에 등록되었던 시그널 핸들러의 함수 포인터 얻는데 사용, 필요 없다면 0 전달.
+
+struct sigaction {
+    void (*sa_handler)(int);
+    sigset_t sa_mask;
+    int sa_flags;
+};
+
 #include <unistd.h>
 unsigned int alarm(unsigned int seconds);
 // 0 또는 SIGALRM 시그널이 발생하기까지 남아있는 시간을 초 단위로 반환
