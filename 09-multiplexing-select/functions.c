@@ -1,12 +1,12 @@
 #include <sys/select.h>
 #include <sys/time.h>
 
-int select(int maxfd, fd_set *readset, fd_set *writeset, fd_set *exceptset, const struct timeval *timeout);
+int select(int nfds, fd_set *readset, fd_set *writeset, fd_set *exceptset, const struct timeval *timeout);
 // 성공 시 0 이상, 실패 시 -1 반환
 // 함수 호출 이후에는 변화가 발생한 파일 디스크립터에 해당하는 비트만 1로 남아있게 된다.
 // 함수 호출 이후에는 timeout에 타임아웃이 발생하기 전까지 남은 시간으로 바뀐다.
 
-// maxfd:       검사 대상이 되는 파일 디스크립터의 수
+// nfds:        검사할 파일 디스크립터 중 가장 큰 파일 디스크립터 값 + 1
 // readset:     fd_set형 변수에 '수신된 데이터의 존재여부'에 관심 있는 파일 디스크립터 등록 후 주소값 전달
 // writeset:    fd_set형 변수에 '블로킹 없는 데이터 전송의 가능여부'에 관심 있는 파일 디스크립터 등록 후 주소값 전달
 // exceptset:   fd_set형 변수에 '예외상황의 발생여부'에 관심이 있는 파일 디스크립터 등록 후 주소값 전달
