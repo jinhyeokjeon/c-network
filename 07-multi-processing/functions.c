@@ -34,6 +34,8 @@ void (*signal(int signo, void (*func)(int)))(int);
 // SIGINT:      CTRL+C 가 입력된 상황
 // SIGCHLD:     자식 프로세스가 종료된 상황
 
+// 두 번째 인자로 SIG_IGN 전달 시 시그널 무시한다.
+
 int sigaction(int signo, const struct sigaction *act, struct sigaction *oldact);
 // 성공 시 0, 실패 시 -1 반환
 
